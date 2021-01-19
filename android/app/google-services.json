@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "365257336127",
+    "project_id": "security-rules-sample-7b6af",
+    "storage_bucket": "security-rules-sample-7b6af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365257336127:android:34a7b06e1bcee8e2fcdf8a",
+        "android_client_info": {
+          "package_name": "com.kosukesaigusa.security_rules_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365257336127-sso9aqf9jieln1hr95vfomf5iqkubs1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBZp1LkS3BBseC2jria25cMQe3liRzNz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365257336127-sso9aqf9jieln1hr95vfomf5iqkubs1j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "365257336127-790udh45sskk529pdovv8o8dfh0ch8ti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kosukesaigusa.security-rules-sample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // サインインの認証
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // 本人の認証
+    function isUserAuthenticated(userId) {
+      return isAuthenticated() && userId == request.auth.uid;
+    }
+
+    // ユーザーデータのスキーマ検証
+    function isValidUser(user) {
+      return user.size() == 3
+      && 'createdAt' in user && user.createdAt is timestamp
+      && 'email' in user && user.email is string
+      && 'userId' in user && user.userId is string;
+    }
+
+    // 支出データのスキーマ検証
+    function isValidExpense(expense) {
+      return expense.size() == 4
+      && 'createdAt' in expense && expense.createdAt is timestamp
+      && 'userId' in expense && expense.userId is string
+      && 'content' in expense && expense.content is string
+      && 'price' in expense && expense.price is int;
+    }
+
+    match /users/{userId} {
+      // ユーザー情報の取得のルール
+      allow get: if isUserAuthenticated(userId);
+
+      // ユーザー情報の作成のルール
+      allow create: if isUserAuthenticated(userId)
+      && isValidUser(request.resource.data)
+      && request.resource.data.createdAt == request.time 
+      && request.resource.data.userId == userId;
+
+      // ユーザー情報の更新のルール
+      allow update: if isUserAuthenticated(userId)
+      && isValidUser(request.resource.data)
+      && request.resource.data.createdAt == resource.data.createdAt
+      && request.resource.data.userId == resource.data.userId;
+
+      match /expenses/{expenseId} {
+        // 支出データの読み取りのルール
+        allow read: if isUserAuthenticated(userId);
+
+        // 支出データの作成のルール
+        allow create: if isUserAuthenticated(userId)
+        && isValidExpense(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.userId == userId
+        && (request.resource.data.content.size() > 0 
+        && request.resource.data.content.size() < 100
+        )
+        && (request.resource.data.price > 0 
+        && request.resource.data.price < 1000000
+        );
+
+        // 支出データの更新のルール
+        allow update: if isUserAuthenticated(userId)
+        && isValidExpense(request.resource.data)
+        && (request.resource.data.content.size() > 0 
+        && request.resource.data.content.size() < 100
+        )
+        && (request.resource.data.price > 0 
+        && request.resource.data.price < 1000000
+        )
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.userId == resource.data.userId;
+
+        // 支出データの削除のルール
+        allow delete: if isUserAuthenticated(userId);
+      }
+    }
+  }
+}

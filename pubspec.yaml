@@ -1,0 +1,26 @@
+name: security_rules_sample
+description: A sample project for Firestore security rules on Flutter app.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^0.5.0+1
+  cloud_firestore: ^0.14.4
+  firebase_auth: ^0.18.0+1
+  provider: ^4.3.2+4
+  keyboard_actions: ^3.3.1+1
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
