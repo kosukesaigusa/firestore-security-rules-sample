@@ -1,16 +1,7 @@
-# security_rules_sample
+# Firestore Security Rules sample
 
-A sample project for Firestore security rules on Flutter app.
+Flutter アプリにおける Firestore Security Rules のサンプルプロジェクト。
 
-## Getting Started
+## 資料・参考
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[2021-01-20 Firestore Security Rules の勉強会 資料 (Google Slides)](https://docs.google.com/presentation/d/1g3JfgaFdxiYp6Ul2LtuhrfRWG2TNGrvbGsK4gEu4O80/edit#slide=id.p)
