@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isUserAuthenticated(userId) {
+      return isAuthenticated() && userId == request.auth.uid;
+    }
+
+    function isValidUser(user) {
+      return user.size() == 3
+      && 'createdAt' in user && user.createdAt is timestamp
+      && 'email' in user && user.email is string
+      && 'userId' in user && user.userId is string;
+    }
+
+    // 支出データのスキーマ検証
+    function isValidExpense(expense) {
+      // return ...
+    }
+
+    match /users/{userId} {
+      // ユーザー情報の取得のルール
+      allow get: if isUserAuthenticated(userId);
+
+      // ユーザー情報の作成のルール
+      allow create: if isUserAuthenticated(userId)
+      && isValidUser(request.resource.data)
+      && request.resource.data.createdAt == request.time 
+      && request.resource.data.userId == userId;
+
+      // ユーザー情報の更新のルール
+      allow update: if isUserAuthenticated(userId)
+      && isValidUser(request.resource.data)
+      && request.resource.data.createdAt == resource.data.createdAt
+      && request.resource.data.userId == resource.data.userId;
+
+      match /expenses/{expenseId} {
+        // 支出データの読み取りのルール
+        // allow read: if ...
+
+        // 支出データの作成のルール
+        // allow create: if ...
+
+        // 支出データの更新のルール
+        // allow update: if ...
+
+        // 支出データの削除のルール
+        // allow delete: if ...
+      }
+    }
+  }
+}
