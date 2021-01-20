@@ -6,6 +6,7 @@ import 'package:security_rules_sample/common/loading_indicator.dart';
 import 'package:security_rules_sample/common/text_dialog.dart';
 import 'package:security_rules_sample/presentation/home/home_page.dart';
 import 'package:security_rules_sample/presentation/sign_in/sign_in_model.dart';
+import 'package:security_rules_sample/presentation/sign_up/sign_up_page.dart';
 
 class SignInPage extends StatelessWidget {
   final FocusNode _focusNodeEmail = FocusNode();
@@ -39,6 +40,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ログインページ'),
+        leading: Container(),
       ),
       body: ChangeNotifierProvider<SignInModel>(
         create: (_) => SignInModel(),
@@ -118,6 +120,22 @@ class SignInPage extends StatelessWidget {
                                       }
                                     }
                                   : null,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          Center(
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpPage(),
+                                  ),
+                                );
+                              },
+                              child: Text('新規登録ページへ'),
                             ),
                           ),
                         ],
